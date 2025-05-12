@@ -320,45 +320,24 @@ TIP: you can change it to `:=` to allow mutation:
 			</section>
 			<section data-auto-animate data-auto-animate-restart>
 				<pre data-id="den-ex"><code data-trim data-line-numbers class="language-tidy">
+					# An empty Den
 					empty :: []
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="den-ex"><code data-trim data-line-numbers="3-6" class="language-tidy">
+				<pre data-id="den-ex"><code data-trim data-line-numbers="4-7" class="language-tidy">
+					# An empty Den
 					empty :: []
 
 					person :: [
-						'name'  :: 'Mike'
-						'money' := 20
+						name  :: 'Mike'
+						money := 20
 					]
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="den-ex"><code data-trim data-line-numbers="8" class="language-tidy">
-					empty :: []
-
-					person :: [
-						'name'  :: 'Mike'
-						'money' := 20
-					]
-
-					nums :: [0 :: 5, 1 :: 12, 2 :: 97]
-				</code></pre>
-			</section>
-			<section data-auto-animate>
-				<pre data-id="den-ex"><code data-trim data-line-numbers="8" class="language-tidy">
-					empty :: []
-
-					person :: [
-						'name'  :: 'Mike'
-						'money' := 20
-					]
-
-					nums :: [5, 12, 97]
-				</code></pre>
-			</section>
-			<section data-auto-animate>
-				<pre data-id="den-ex"><code data-trim data-line-numbers="3-6" class="language-tidy">
+				<pre data-id="den-ex"><code data-trim data-line-numbers="9" class="language-tidy">
+					# An empty Den					
 					empty :: []
 
 					person :: [
@@ -366,11 +345,12 @@ TIP: you can change it to `:=` to allow mutation:
 						money := 20
 					]
 
-					nums :: [5, 12, 97]
+					nums := [5, 12, 97]
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="den-ex"><code data-trim data-line-numbers="10-13" class="language-tidy">
+				<pre data-id="den-ex"><code data-trim data-line-numbers="11-14" class="language-tidy">
+					# An empty Den					
 					empty :: []
 
 					person :: [
@@ -378,17 +358,18 @@ TIP: you can change it to `:=` to allow mutation:
 						money := 20
 					]
 
-					nums :: [5, 12, 97]
+					nums := [5, 12, 97]
 
 					info(person.name)  # 'Mike'
-					
+
 					person.money = 0
 
 					five :: nums.0
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="den-ex"><code data-trim data-line-numbers="10-13" class="language-tidy">
+				<pre data-id="den-ex"><code data-trim data-line-numbers="11-14" class="language-tidy">
+					# An empty Den					
 					empty :: []
 
 					person :: [
@@ -396,7 +377,7 @@ TIP: you can change it to `:=` to allow mutation:
 						money := 20
 					]
 
-					nums :: [5, 12, 97]
+					nums := [5, 12, 97]
 
 					person.get('name')
 					person.add('job', 'baker')
