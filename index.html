@@ -407,7 +407,7 @@ TIP: you can change it to `:=` to allow mutation:
 				<pre data-id="comp-ex"><code data-trim data-line-numbers class="language-tidy fragment fade-bottom">
 					Circle :: [radius :: 0.0]
 					Rectangle :: [width :: 0, height :: 0]
-				</code></pre>	
+				</code></pre>
 			</section>
 			<section data-auto-animate>
 				<pre data-id="comp-ex"><code data-trim data-line-numbers="4-5" class="language-tidy">
@@ -475,64 +475,6 @@ TIP: you can change it to `:=` to allow mutation:
 					rect.area()
 				</code></pre>	
 			</section>
-			<section>
-				<pre><code data-trim data-line-numbers class="language-tidy fragment">
-					a + b
-
-					# simplified
-					add(a, b)
-
-					a.add(b)
-					b.add(a)
-				</code></pre>
-			</section>
-			<section data-auto-animate data-auto-animate-restart>
-				<pre data-id="overload" class="language-tidy fragment"><code data-trim data-line-numbers>
-					Point :: [x := 0, y := 0]
-				</code></pre>
-			</section>
-
-			<section data-auto-animate>
-				<pre data-id="overload" class="language-tidy"><code data-trim data-line-numbers="3-6">
-					Point :: [x := 0, y := 0]
-
-					add :: (l, r) [
-						(Point, Point) -> Point[x: l.x + r.x, y: l.y + r.y]
-						(_, _)         -> add(l, r)
-					]
-				</code></pre>	
-			</section>
-
-			<section data-auto-animate>
-				<pre data-id="overload" class="language-tidy"><code data-trim data-line-numbers="8,9">
-					Point :: [x := 0, y := 0]
-
-					add :: (l, r) [
-						(Point, Point) -> Point[x: l.x + r.x, y: l.y + r.y]
-						(_, _)         -> add(l, r)
-					]
-
-					a :: Point[x: 10, y: 20]
-					b :: Point[x: 90, y: 75]
-				</code></pre>	
-			</section>
-
-			<section data-auto-animate>
-				<pre data-id="overload" class="language-tidy"><code data-trim data-line-numbers="11">
-					Point :: [x := 0, y := 0]
-
-					add :: (l, r) [
-						(Point, Point) -> Point[x: l.x + r.x, y: l.y + r.y]
-						(_, _)         -> add(l, r)
-					]
-
-					a :: Point[x: 10, y: 20]
-					b :: Point[x: 90, y: 75]
-
-					c :: a + b
-					info(c)  # [x: 100, y: 95]
-				</code></pre>	
-			</section>
 			<section data-auto-animate data-auto-animate-restart>
 				<h4 style="position: relative; top: 20vh; opacity: 0;">Types as values</h4>	
 				<h4 style="position: relative; top: 15vh; opacity: 0;">Dependent types</h4>
@@ -579,14 +521,14 @@ TIP: you can change it to `:=` to allow mutation:
 					<h2>JVM</h2>
 					<p>(HotSpot, GraalVM, OpenJ9, ART)</p>
 				</div>
-				<div class="row" style="gap: 10px">
-					<div class="fragment" style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
+				<div class="row fragment" style="gap: 10px">
+					<div style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
 						<h6>x64</h6>
 					</div>
-					<div class="fragment" style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
+					<div style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
 						<h6>Android</h6>
 					</div>
-					<div class="fragment" style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
+					<div style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
 						<h6>Applets</h6>
 					</div>
 				</div>
