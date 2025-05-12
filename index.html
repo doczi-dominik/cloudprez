@@ -814,7 +814,7 @@ TIP: there is an image with a similar name: `python-app:latest`
 						From(ubuntu.image)
 						Copy(from: 'webapp.py', into: 'webapp/')
 						ubuntu.AptInstall(python.PackageName())
-						python.Run('webapp.py')
+						python.Cmd('webapp.py')
 					]
 				</code></pre>
 			</section>
@@ -832,7 +832,7 @@ TIP: there is an image with a similar name: `python-app:latest`
 						From(ubuntu.image)
 						Copy(from: 'webapp.py', into: 'webapp/')
 						ubuntu.AptInstall(python.PackageName())
-						python.Run(webapp.py)
+						python.Cmd(webapp.py)
 					]
 				</code></pre>
 			</section>
