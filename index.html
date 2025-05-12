@@ -438,7 +438,7 @@ TIP: you can change it to `:=` to allow mutation:
 					]
 
 					circ := Circle()
-				</code></pre>	
+				</code></pre>
 			</section>
 			<section data-auto-animate>
 				<pre data-id="comp-ex"><code data-trim data-line-numbers="9-13" class="language-tidy">
@@ -653,6 +653,7 @@ TIP: you can change it to `:=` to allow mutation:
 			</section>
 			<section data-auto-animate>
 				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					# compose.ty
 					webnet :: Network()
 
 					web :: Service[
@@ -669,6 +670,7 @@ TIP: you can change it to `:=` to allow mutation:
 					<span>🐛</span>
 				</div>
 				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					# compose.ty
 					webnet :: Network()
 
 					web :: Service[
@@ -685,6 +687,7 @@ TIP: you can change it to `:=` to allow mutation:
 					<span>🐛</span>
 				</div>
 				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					# compose.ty
 					webnet :: Network()
 
 					web :: Service[
@@ -696,6 +699,7 @@ TIP: you can change it to `:=` to allow mutation:
 			</section>
 			<section data-auto-animate>
 				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					# compose.ty
 					webnet :: Network()
 
 					web :: Service[
@@ -723,6 +727,7 @@ TIP: there is an image with a similar name: `python-app:latest`
 					<span>🐛</span>
 				</div>
 				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					# compose.ty
 					webnet :: Network()
 
 					web :: Service[
@@ -733,7 +738,8 @@ TIP: there is an image with a similar name: `python-app:latest`
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="dock"><code data-trim data-line-numbers="5" class="language-tidy">
+				<pre data-id="dock"><code data-trim data-line-numbers="6" class="language-tidy">
+					# compose.ty
 					webnet :: Network()
 
 					web :: Service[
@@ -744,7 +750,8 @@ TIP: there is an image with a similar name: `python-app:latest`
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="dock"><code data-trim data-line-numbers="5" class="language-tidy">
+				<pre data-id="dock"><code data-trim data-line-numbers="6" class="language-tidy">
+					# compose.ty
 					webnet :: Network()
 
 					web :: Service[
@@ -784,6 +791,7 @@ TIP: there is an image with a similar name: `python-app:latest`
 			</section>
 			<section data-auto-animate>
 				<pre data-id="image"><code data-trim data-line-numbers class="language-tidy">
+					# dockerfile.ty
 					ubuntu :: import('ubuntu')
 					python :: import('python')
 
@@ -796,7 +804,8 @@ TIP: there is an image with a similar name: `python-app:latest`
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="image"><code data-trim data-line-numbers="3,6,7" class="language-tidy">
+				<pre data-id="image"><code data-trim data-line-numbers="4,7,8" class="language-tidy">
+					# dockerfile.ty
 					ubuntu :: import('ubuntu')
 					python :: import('python')
 					redis :: import ('redis')
@@ -814,6 +823,7 @@ TIP: there is an image with a similar name: `python-app:latest`
 			</section>
 			<section data-auto-animate data-auto-animate-restart>
 				<pre data-id="help"><code data-trim data-line-numbers class="language-tidy">
+					# compose.ty
 					pythonApp :: import('fsattila-python-app')
 
 					webnet :: Network()	
@@ -826,7 +836,22 @@ TIP: there is an image with a similar name: `python-app:latest`
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="help"><code data-trim data-line-numbers="6" class="language-tidy error-line">
+				<pre data-id="help"><code data-trim data-line-numbers="2,7,8" class="language-tidy">
+					# compose.ty
+					pythonApp :: import('fsattila-python-app')
+
+					webnet :: Network()	
+
+					web :: Service[
+						Image(pythonApp)
+						Port(pythonApp)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="help"><code data-trim data-line-numbers="7" class="language-tidy error-line">
+					# compose.ty
 					pythonApp :: import('fsattila-python-app')
 
 					webnet :: Network()	
@@ -858,6 +883,7 @@ please add such a Service, or add it to the `ignoreDeps` param:
 					<span>✅</span>
 				</div>
 				<pre data-id="help"><code data-trim data-line-numbers="5-7" class="language-tidy">
+					# compose.ty
 					pythonApp :: import('fsattila-python-app')
 
 					webnet :: Network()	
