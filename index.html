@@ -1,0 +1,1255 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/night.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/crpietschmann/hljslanguagedisplayplugin@v1.0/dist/css/hljslanguagedisplayplugin.css">
+	<script src="https://cdn.jsdelivr.net/gh/crpietschmann/hljslanguagedisplayplugin@v1.0/dist/js/hljslanguagedisplayplugin.js"></script>	
+
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');	
+
+		.reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal li, .reveal i, .reveal span {
+			text-shadow: 1px 1px 10px black;
+		}
+
+		.reveal code, code.hljs {
+			font-family: 'Geist Mono', monospace;
+		}
+
+		@keyframes tidyTitle {
+			from {
+				text-shadow: 1px 1px 30px greenyellow;
+			}
+
+			to {
+				text-shadow: 1px 1px 20px green;
+			}
+		}
+	
+		#tidyTitle {
+			animation: tidyTitle 2s ease-in-out infinite alternate !important;
+			font-style: italic;
+		}
+
+		.reveal .backgrounds {
+			background-image: url("https://cdnb.artstation.com/p/assets/images/images/006/170/271/medium/alena-aenami-lights1k1.jpg?1496536109");
+			background-size: cover;
+			background-position: center;
+		}
+
+		.reveal.blur-background1 .backgrounds {
+			filter: blur(8px);
+			opacity: 0.6;
+			transform: scale(1.1);
+			transition: all 0.5s ease;
+		}
+
+		.reveal.blur-background2 .backgrounds {
+			filter: blur(10px);
+			opacity: 0.2;
+			transform: scale(1.35);
+			transition: all 0.5s ease;	
+		}
+
+		.reveal pre {
+			box-shadow: none;
+		}
+
+		.reveal pre code {
+			background-color: rgba(0, 0, 0, 0);
+			border-radius: 11px;
+		}
+
+		.hljs-ln-code {
+			background-color: rgba(0, 0, 0, 0);
+		}
+
+		/* Keywords (if, else, return, etc.) */
+		.hljs-keyword {
+			color: #be9256;
+			font-weight: bold;
+		}
+
+		/* Built-in types or function/class names */
+		.hljs-type,
+		.hljs-title,
+		.hljs-function .hljs-title {
+			color: #ffae51;
+		}
+
+		/* Variable names */
+		.hljs-variable,
+		.hljs-symbol {
+			color: #ffffeb;
+		}
+
+		/* Parameters in functions or pattern matches */
+		.hljs-params {
+			color: #ffffeb;
+			font-style: italic;
+		}
+
+		/* String literals */
+		.hljs-string {
+			color: #06f5a0;
+		}
+
+		/* Numbers, constants */
+		.hljs-number,
+		.hljs-literal {
+			color: #27ff8b;
+		}
+
+		/* Comments */
+		.hljs-comment {
+			color: #a2a18f;
+			font-style: italic;
+		}
+
+		/* Operators and punctuation */
+		.hljs-operator,
+		.hljs-punctuation {
+			color: #be9256;
+		}
+
+		i {
+			font-style: italic;
+		}
+
+		.error-line .highlight-line {
+			width: 100%;
+			background: linear-gradient(to right, rgba(255, 0, 0, 0.3), rgba(0, 0, 0, 0));
+		}
+
+		.error-line .highlight-line .hljs-ln-code {
+			text-decoration: underline red wavy 2px;
+		}
+
+		.warn-line .highlight-line {
+			width: 100%;
+			background: linear-gradient(to right, rgba(255, 225, 0, 0.3), rgba(0, 0, 0, 0));
+		}
+
+		.warn-line .highlight-line .hljs-ln-code {
+			text-decoration: underline yellow wavy 2px;
+		}
+	
+		.row {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.flip {
+			transform: scaleX(-1);
+		}
+
+		.column {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.reveal img.imgmaxh {
+			max-height: 3rem;
+		}
+
+		.justify-center {
+			justify-content: center;
+		}
+
+		.align-center {
+			align-content: center;
+		}
+
+		.reveal td {
+			vertical-align: middle;
+		}
+
+		.platf-col b {
+			margin-block: 5px;
+			font-size: 2rem;
+		}
+
+		.provides b {
+			color: hsl(140, 87%, 80%)
+		}
+
+		.handles b {
+			color: hsl(43, 68%, 80%);
+		}
+
+		.platf-resp h5 {
+			text-shadow: none;
+			font-size: clamp(1.5rem, 5vmin, 2.5rem);
+			margin: 10px;
+			color: hsl(43, 68%, 80%);
+		}
+
+		.tidy-resp h5 {
+			text-shadow: none;
+			font-size: clamp(1.5rem, 5vmin, 2.5rem);
+			margin: 10px;
+			color: hsl(140, 87%, 80%)
+		}
+
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-auto-animate>
+				<h2><span style="color: yellow; text-decoration: underline yellowgreen wavy 5px; text-shadow: 1px 1px 15px black;">Config as Code</span> with </h2>
+				<h2 data-id="tidy" style="animation: tidyTitle 1s ease-in-out infinite alternate; font-style: italic;">tidy</h2>
+				<i>Dóczi Dominik</i>
+			</section>
+			<section data-auto-animate>
+				<h2 data-id="tidy" style="animation: tidyTitle 1s ease-in-out infinite alternate; font-style: italic;">tidy</h2>
+			</section>
+			<section data-auto-animate data-transition="fade">
+				<h2 data-id="tidy" style="animation: tidyTitle 1s ease-in-out infinite alternate; font-style: italic;">tidy</h2>
+				<h4 class="fragment" style="color: lightgoldenrodyellow; border-left: 5px solid lightgoldenrodyellow;">Friendly language for humans and computers</h4>
+				<ul data-id="list">
+					<li class="fragment fade-in-then-semi-out">UX</li>
+					<li class="fragment fade-in-then-semi-out">Type Safety</li>
+					<li class="fragment fade-in-then-semi-out">Simplicity</li>
+				</ul>
+			</section>
+			<section data-auto-animate data-transition="fade">
+				<h2 data-id="tidy" style="animation: tidyTitle 1s ease-in-out infinite alternate; font-style: italic;">tidy</h2>
+				<h4 style="color: lightgoldenrodyellow; border-left: 5px solid lightgoldenrodyellow;">Friendly language for humans and computers</h4>
+				<ol data-id="list">
+					<li style="color: hsl(148, 100%, 78%);">UX</li>
+					<li style="color: hsl(148, 50%, 48%);">Type Safety</li>
+					<li style="color: hsl(148, 25%, 38%);">Simplicity</li>
+				</ol>
+			</section>
+			<section data-auto-animate data-transition="fade">
+				<h2 data-id="tidy" style="animation: tidyTitle 1s ease-in-out infinite alternate; font-style: italic;">tidy</h2>
+				<h4 style="color: lightgoldenrodyellow; border-left: 5px solid lightgoldenrodyellow;">Friendly language for humans and computers</h4>
+				<ul data-id="list">
+					<li class="fragment fade-in-then-semi-out">BSc Thesis</li>
+					<li class="fragment fade-in-then-semi-out">Teppy </li>
+				</ul>
+				<div>
+					<img class="fragment fade-left" style="height: 10rem;" src="tepi.png" />
+				</div>
+			</section>
+			<section>
+				<h3>Easy-to-learn</h3>
+				<h3 class="fragment fade-right" style="color: hsl(0, 100%, 70%)">...but not by familiarity</h3>
+			</section>
+			<section>
+				<img class="r-stretch" src="tepi.png" />
+				<h2>Time for <code>code</code>!</h2>
+			</section>
+			<section data-auto-animate data-autoslide="700">
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex1"><code data-trim data-line-numbers class="language-tidy">
+					money := 25
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex1"><code data-trim data-line-numbers="2" class="language-tidy">
+					money := 25
+					money = 9
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex1"><code data-trim data-line-numbers="4" class="language-tidy error-line">
+					money := 25
+					money = 9
+
+					money = '10'
+				</code></pre>
+				<pre><code data-trim class="fragment fade-bottom language-tidy">
+-- variables.ty: [TYPE MISMATCH] -------------------------
+
+`money` holds Num values, but you tried to assign a Str:
+
+  4 | money = '10'
+      ~~~~~   ^^^^ Str literal: '10'
+      |
+      | holds `Num` values
+
+TIP: remove the ' ' around 10 to reassign `money`
+
+  4 | money = 10
+
+remember, stuff inside ' ' or " " is always just text, not data!
+				</code></pre>
+			</section>
+			<section data-auto-animate data-auto-animate-restart>
+				<pre data-id="ex2"><code class="language-tidy" data-trim data-line-numbers>
+				pain :: True
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex2"><code class="language-tidy error-line" data-trim data-line-numbers="3">
+				pain :: True
+
+				pain = False
+				</code></pre>
+				<pre><code data-trim class="language-tidy fragment fade-bottom">
+-- immut.ty: [IMMUT_ASSIGN] ------------------------------------
+
+you tried to modify `pain`, an immutable `::` binding:
+
+  2 | pain :: True
+           ~~ declared here with `::`, no mutation allowed
+
+  4 | pain = False
+           ^ tried to assign to an `::` binding
+
+TIP: you can change it to `:=` to allow mutation:
+
+  2 | pain := True
+
+...but consider that `::` bindings have fewer surprises!
+				</code></pre>
+			</section>
+			<section data-auto-animate data-auto-animate-restart>
+				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="1,6">
+				swap :: (first, second) {
+					temp :: Take(first)
+
+					first = second
+					second = temp
+				}
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="4-5">
+				swap :: (first, second) {
+					temp :: Take(first)
+
+					first = second
+					second = temp
+				}
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="8-11">
+				swap :: (first, second) {
+					temp :: Take(first)
+
+					first = second
+					second = temp
+				}
+
+				a := 5
+				b := 9
+
+				swap(a, b)
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="3-6">
+				swap :: (first, second) { }
+
+				a := 5
+				b := 9
+
+				swap(a, b)
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex3"><code data-trim class="language-tidy warn-line" data-line-numbers="6">
+				swap :: (first, second) { }
+
+				a := 5
+				b := 9
+
+				swap(a, b)
+				</code></pre>
+				<pre><code class="fragment fade-bottom language-tidy">
+-- swap.ty: [MUT_MARKER_RECOMM] ---------------------------------	
+
+the `swap` function mutates some of its parameters:
+
+  6 | swap(a, b)
+           ^--^ these 2 arguments are mutated by `swap`
+
+i suggest you add ! after these args to make mutation obvious:
+
+  6 | swap(a!, b!)
+
+this way anyone can tell without looking at `swap` directly!
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="6-8">
+				swap :: (first, second) { }
+
+				a := 5
+				b := 9
+
+				swap(a!, b!)
+
+				info(a == 9, b == 5)  # True, True
+				</code></pre>
+			</section>
+			<section data-auto-animate data-auto-animate-restart>
+				<pre data-id="den-ex"><code data-trim data-line-numbers class="language-tidy">
+					empty :: []
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="den-ex"><code data-trim data-line-numbers="3-6" class="language-tidy">
+					empty :: []
+
+					person :: [
+						'name'  :: 'Mike'
+						'money' := 20
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="den-ex"><code data-trim data-line-numbers="8" class="language-tidy">
+					empty :: []
+
+					person :: [
+						'name'  :: 'Mike'
+						'money' := 20
+					]
+
+					nums :: [0 :: 5, 1 :: 12, 2 :: 97]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="den-ex"><code data-trim data-line-numbers="8" class="language-tidy">
+					empty :: []
+
+					person :: [
+						'name'  :: 'Mike'
+						'money' := 20
+					]
+
+					nums :: [5, 12, 97]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="den-ex"><code data-trim data-line-numbers="3-6" class="language-tidy">
+					empty :: []
+
+					person :: [
+						name  :: 'Mike'
+						money := 20
+					]
+
+					nums :: [5, 12, 97]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="den-ex"><code data-trim data-line-numbers="10-13" class="language-tidy">
+					empty :: []
+
+					person :: [
+						name  :: 'Mike'
+						money := 20
+					]
+
+					nums :: [5, 12, 97]
+
+					info(person.name) # prints 'Mike'
+					person.money = 0
+
+					five :: nums.0
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="den-ex"><code data-trim data-line-numbers="10-13" class="language-tidy">
+					empty :: []
+
+					person :: [
+						name  :: 'Mike'
+						money := 20
+					]
+
+					nums :: [5, 12, 97]
+
+					person.get('name')
+					person.add('job', 'baker')
+
+					nums.push(123)
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="comp-ex"><code data-trim data-line-numbers class="language-tidy fragment fade-bottom">
+					Circle :: [radius :: 0.0]
+					Rectangle :: [width :: 0, height :: 0]
+				</code></pre>	
+			</section>
+			<section data-auto-animate>
+				<pre data-id="comp-ex"><code data-trim data-line-numbers="4-5" class="language-tidy">
+					Circle :: [radius :: 0.0]
+					Rectangle :: [width :: 0, height :: 0]
+
+					circleArea :: (c: Circle) { 2 * Pi * c.radius * c.radius }
+					circleRectangle :: (r: Rectangle) { 2 * (r.width + r.height) }
+				</code></pre>	
+			</section>
+			<section data-auto-animate>
+				<pre data-id="comp-ex"><code data-trim data-line-numbers="7-9" class="language-tidy">
+					Circle :: [radius :: 0.0]
+					Rectangle :: [width :: 0, height :: 0]
+
+					circleArea :: (c: Circle) { 2 * Pi * c.radius * c.radius }
+					circleRectangle :: (r: Rectangle) { 2 * (r.width + r.height) }
+
+					circ := Circle()	
+
+					circleArea(circ)
+				</code></pre>	
+			</section>
+			<section data-auto-animate>
+				<pre data-id="comp-ex"><code data-trim data-line-numbers="9-10" class="language-tidy">
+					Circle :: [radius :: 0.0]
+					Rectangle :: [width :: 0, height :: 0]
+
+					circleArea :: (c: Circle) { 2 * Pi * c.radius * c.radius }
+					circleRectangle :: (r: Rectangle) { 2 * (r.width + r.height) }
+
+					circ := Circle()	
+
+					circleArea(circ)
+					circ.circleArea()
+				</code></pre>	
+			</section>
+			<section data-auto-animate>
+				<pre data-id="comp-ex"><code data-trim data-line-numbers="4-7" class="language-tidy">
+					Circle :: [radius :: 0.0]
+					Rectangle :: [width :: 0, height :: 0]
+
+					area :: (s) [
+						Circle    -> 2 * Pi * s.radius * s.radius
+						Rectangle -> 2 * (s.width + s.height)
+					]
+
+					circ := Circle()
+				</code></pre>	
+			</section>
+			<section data-auto-animate>
+				<pre data-id="comp-ex"><code data-trim data-line-numbers="9-13" class="language-tidy">
+					Circle :: [radius :: 0.0]
+					Rectangle :: [width :: 0, height :: 0]
+
+					area :: (s) [
+						Circle    -> 2 * Pi * s.radius * s.radius
+						Rectangle -> 2 * (s.width + s.height)
+					]
+
+					circ := Circle()
+					rect := Rectangle()
+
+					circ.area()
+					rect.area()
+				</code></pre>	
+			</section>
+			<section>
+				<pre><code data-trim data-line-numbers class="language-tidy fragment">
+					a + b
+
+					# simplified
+					add(a, b)
+
+					a.add(b)
+					b.add(a)
+				</code></pre>
+			</section>
+			<section data-auto-animate data-auto-animate-restart>
+				<pre data-id="overload" class="language-tidy fragment"><code data-trim data-line-numbers>
+					Point :: [x := 0, y := 0]
+				</code></pre>
+			</section>
+
+			<section data-auto-animate>
+				<pre data-id="overload" class="language-tidy"><code data-trim data-line-numbers="3-6">
+					Point :: [x := 0, y := 0]
+
+					add :: (l, r) [
+						(Point, Point) -> Point[x: l.x + r.x, y: l.y + r.y]
+						(_, _)         -> add(l, r)
+					]
+				</code></pre>	
+			</section>
+
+			<section data-auto-animate>
+				<pre data-id="overload" class="language-tidy"><code data-trim data-line-numbers="8,9">
+					Point :: [x := 0, y := 0]
+
+					add :: (l, r) [
+						(Point, Point) -> Point[x: l.x + r.x, y: l.y + r.y]
+						(_, _)         -> add(l, r)
+					]
+
+					a :: Point[x: 10, y: 20]
+					b :: Point[x: 90, y: 75]
+				</code></pre>	
+			</section>
+
+			<section data-auto-animate>
+				<pre data-id="overload" class="language-tidy"><code data-trim data-line-numbers="11">
+					Point :: [x := 0, y := 0]
+
+					add :: (l, r) [
+						(Point, Point) -> Point[x: l.x + r.x, y: l.y + r.y]
+						(_, _)         -> add(l, r)
+					]
+
+					a :: Point[x: 10, y: 20]
+					b :: Point[x: 90, y: 75]
+
+					c :: a + b
+				</code></pre>	
+			</section>
+			<section data-auto-animate>
+				<pre data-id="overload" class="language-tidy"><code data-trim data-line-numbers="3-5">
+					Point :: [x := 0, y := 0]
+					
+					add.overload((l: Point, r: Point) {
+						Point[x: l.x + r.x, y: l.y + r.y]
+					})
+
+					a :: Point[x: 10, y: 20]
+					b :: Point[x: 90, y: 75]
+
+					c :: a + b
+				</code></pre>	
+			</section>
+			<section data-auto-animate data-auto-animate-restart>
+				<h4 style="position: relative; top: 20vh; opacity: 0;">Types as values</h4>	
+				<h4 style="position: relative; top: 15vh; opacity: 0;">Dependent types</h4>
+				<h4 style="position: relative; top: 10vh; opacity: 0;">Platforms</h4>
+				<h4 style="position: relative; opacity: 0;">Pattern matching</h4>
+				<h4 style="position: relative; top: -5vh; opacity: 0;">Linear/Affine types</h4>
+				<h4 style="position: relative; top: -10vh; opacity: 0;">Captures</h4>
+			</section>
+			<section data-auto-animate>
+				<h4 style="position: relative; left: 0em;">Types as values</h4>	
+				<h4 style="position: relative; left: -10em;">Platforms</h4>
+				<h4 style="position: relative; left: 6em;">Dependent types</h4>
+				<h4 style="position: relative; left: 2em;">Pattern matching</h4>
+				<h4 style="position: relative; left: -4em;">Linear/Affine types</h4>
+				<h4 style="position: relative; left: 5em;">Captures</h4>
+			</section>
+			<section data-auto-animate>
+				<h4 style="position: relative; left: 0em; opacity: 0;">Types as values</h4>	
+				<h4 style="position: relative; left: 6em; opacity: 0;">Dependent types</h4>
+				<h4 data-id="platf" style="color: #27ff8b; font-size: var(--r-heading2-size); position: relative; transform: translateY(2rem);">Platforms</h3>
+				<h4 style="position: relative; left: 2em; opacity: 0;">Pattern matching</h4>
+				<h4 style="position: relative; left: -4em; opacity: 0;">Linear/Affine types</h4>
+				<h4 style="position: relative; left: 5em; opacity: 0;">Captures</h4>
+			</section>
+			<section data-auto-animate>
+				<h4>Platforms</h4>
+				<div data-id="platf1" class="fragment" style="border: 2px dashed #4af282; background: #4af2824d; margin-block: 10px;">
+					<img data-id="platf1img" src="c.svg" style="height: 50px; filter: drop-shadow(0px 0px 10px black);" />
+				</div>
+				<div data-id="platf2" class="fragment" style="border: 2px dashed #ffae51; background: rgba(255, 174, 81, 0.3); margin-block: 10px;">
+					<h5 style="font-size: 25px;">C Runtime (libc for Unix, msvcrt.dll for Windows)</h5>
+				</div>
+				<div data-id="platf3" class="fragment" style="border: 2px dashed #dfba5a; background: #dfba5a4d; margin-block: 10px;">
+					<img src="cpu.svg" style="height: 125px; filter: drop-shadow(0px 0px 10px black);" />
+					<h5>CPU Architecture</h5>
+				</div>
+			</section>
+			<section data-auto-animate>
+				<h4>Platforms</h4>
+				<div data-id="platf1" style="border: 2px dashed #4af282; background: #4af2824d; margin-block: 10px;">
+					<img data-id="platf1img" src="java.svg" style="height: 100px; filter: drop-shadow(0px 0px 10px black);" />
+				</div>
+				<div data-id="platf2" style="border: 2px dashed #ffae51; background: rgba(255, 174, 81, 0.3); margin-block: 10px">
+					<h2>JVM</h2>
+					<p>(HotSpot, GraalVM, OpenJ9, ART)</p>
+				</div>
+				<div class="row" style="gap: 10px">
+					<div class="fragment" style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
+						<h6>x64</h6>
+					</div>
+					<div class="fragment" style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
+						<h6>Android</h6>
+					</div>
+					<div class="fragment" style="flex-grow: 1; border: 2px dashed #dfba5a; background: #dfba5a4d;">
+						<h6>Applets</h6>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate data-auto-animate-restart>
+				<div class="fragment" style="border: 2px dashed #dfba5a; background: #dfba5a4d; margin-block: 10px; height: 600px;">
+					<h5>Platform</h5>
+
+					<div data-id="platf1" class="row fragment" style="justify-content: space-around; gap: 10px; width: 100%;">
+						<div class="column platf-col provides" style="width: 400px; height: 500px;">
+							<h5 style="color: #27ff8b;">Provides</h5>
+							<b class="fragment fade-in-then-semi-out">Access to outside</b>
+							<b class="fragment fade-in-then-semi-out">Semantics wrt. domain</b>
+							<b class="fragment fade-in-then-semi-out">Tooling</b>
+						</div>
+						
+						<div class="column platf-col handles" style="width: 400px; gap: 10px; height: 500px;">
+							<h5 style="color: #ffae51;">Handles</h5>
+							<b class="fragment fade-in-then-semi-out">Underlying I/O and memory</b>
+							<b class="fragment fade-in-then-semi-out">Type checking, err. report</b>
+							<b class="fragment fade-in-then-semi-out">Build, package, etc.</b>
+							<b class="fragment fade-in-then-semi-out">Producing "output" from code</b>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate>
+				<div data-id="platf3" class="column" style="border: 2px dashed #dfba5a; background: #dfba5a4d; margin-block: 10px; height: 600px;">
+					<h5>Platform</h5>
+
+					<div data-id="tepi-cont" style="border: 2px dashed #4af282; background: #4af2824d; margin: auto 10px 10px 10px;">
+						<img data-id="platf1img" src="tepi.png" style="height: 50px; filter: drop-shadow(0px 0px 10px black);" />
+					</div>					
+				</div>
+			</section>
+			<section data-auto-animate>
+				<div data-id="platf3" class="column" style="border: 2px dashed #dfba5a; background: #dfba5a4d; margin-block: 10px; height: 600px;">
+					<h5>Platform</h5>
+
+					<div data-id="tepi-cont" style="border: 2px dashed #4af282; background: #4af2824d; margin: auto 10px 10px 10px; height: 375px;">
+						<img data-id="platf1img" src="tepi.png" style="height: 300px; filter: drop-shadow(0px 0px 10px black);" />
+					</div>					
+				</div>
+			</section>
+			<section data-auto-animate>
+				<h5 class="fragment" data-fragment-index="9">Low-level x64 programming Platform</h5>
+
+				<div data-id="platf3" class="column" style="border: 2px dashed #dfba5a; background: #dfba5a4d; margin-block: 10px; height: 600px;">
+
+					<div class="column platf-resp" style="height: 125px; width: 100%;">
+						<h5 data-fragment-index="1" class="fragment">Raw hardware / OS access</h5>
+						<h5 data-fragment-index="2" class="fragment">Output machine code</h5>
+						<h5 data-fragment-index="3" class="fragment">Only accepts concrete types</h5>
+					</div>
+
+					<div class="tidy-resp" data-id="platf1" style="border: 2px dashed #4af282; background: #4af2824d; margin: auto 10px 10px 10px; height: 375px;">
+						<img data-id="platf1img" src="tepi.png" style="height: 2rem; filter: drop-shadow(0px 0px 10px black);" />
+						<h5 data-fragment-index="4" class="fragment">Unchecked Memory Management</h5>
+						<h5 data-fragment-index="5" class="fragment">Work with "raw" data types</h5>
+						<h5 data-fragment-index="6" class="fragment">Data Structure implementation</h5>
+						<h5 data-fragment-index="7" class="fragment">Ensure safety</h5>
+						<h5 data-fragment-index="8" class="fragment">Portability, Threading, etc.</h5>
+					</div>					
+				</div>
+			</section>
+			<section data-auto-animate>
+				<h5 class="fragment" data-fragment-index="8">VERY high-level HTTP Server Platform</h5>
+
+				<div data-id="platf3" class="column" style="border: 2px dashed #dfba5a; background: #dfba5a4d; margin-block: 10px; height: 600px;">
+					<div class="column platf-resp" style="height: 125px; width: 100%;">
+						<h5 data-fragment-index="1" class="fragment">Runs an HTTP server</h5>
+						<h5 data-fragment-index="2" class="fragment">Exposes a <code style="color: #ffae51; font-weight: bold;">Req</code> / <code style="color: #ffae51; font-weight: bold;">Resp</code> API</h5>
+						<h5 data-fragment-index="3" class="fragment">Handles async I/O and scheduling</h5>
+						<h5 data-fragment-index="4" class="fragment">Auto. per-request memory management</h5>
+						<h5 data-fragment-index="5" class="fragment">Automatic data struct. selection</h5>
+						<h5 data-fragment-index="6" class="fragment">Compile-time check for protocol violations!</h5>
+					</div>
+
+					<div class="tidy-resp" data-id="platf1" style="border: 2px dashed #4af282; background: #4af2824d; margin: auto 10px 10px 10px; height: 150px;">
+						<img src="tepi.png" style="height: 2rem; filter: drop-shadow(0px 0px 10px black);" />
+						<h5 data-fragment-index="7" class="fragment">Describe API, write handler functions</h5>
+					</div>					
+				</div>
+			</section>
+			<section>
+				<h2 class="fragment">Docker Compose files</h2>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="dock"><code data-trim data-line-numbers>
+					services:
+						web:
+						image: fsattila/python_app:latest
+						ports:
+						   - 8080:80
+						networks:
+						  - webnet
+					
+					networks:
+						webnet
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="dock"><code class="error-line" data-trim data-line-numbers="3,5,8,12,15">
+					services:
+						# indentation
+						web:  
+						# python_app instead of python-app
+						image: fsattila/python_app:latest
+						ports:
+							# wrong exposed port
+						   - 8080:80
+						networks:
+						  - webnet
+
+						# No redis 
+					
+					networks:
+						webnet  # no :
+				</code></pre>
+			</section>
+			<section>
+				<img src="compose-error.png" />
+			</section>
+			<section>
+				<img style="height: 600px;" src="compose-error2.png" />
+			</section>
+			<section data-auto-animate>
+				<pre style="position: relative; left: 22rem;" data-id="dock"><code data-trim data-line-numbers>
+					services:
+						web:
+						image: fsattila/python_app:latest
+						ports:
+						   - 8080:80
+						networks:
+						  - webnet
+					
+					networks:
+						webnet
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					webnet :: Network()
+
+					web :: Service[
+						Image('fsattila/python_app:latest')
+						Port(8080, 80)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<div class="row" style="justify-content: space-between; width: 50%; margin-inline: auto;">
+					<span>🐛</span>
+					<span>🐛</span>
+					<span>🐛</span>
+				</div>
+				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					webnet :: Network()
+
+					web :: Service[
+						Image('fsattila/python_app:latest')
+						Port(8080, 80)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<div class="row" style="justify-content: space-between; width: 50%; margin-inline: auto;">
+					<span>✅</span>
+					<span>🐛</span>
+					<span>🐛</span>
+				</div>
+				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					webnet :: Network()
+
+					web :: Service[
+						Image('fsattila/python_app:latest')
+						Port(8080, 80)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					webnet :: Network()
+
+					web :: Service[
+						Image('fsattila/python_app:latest')
+						Port(8080, 80)
+						Network(webnet)
+					]
+				</code></pre>
+				<pre><code data-trim data-line-numbers class="language-tidy fragment">
+-- docker-compose.ty: [NO_SUCH_IMAGE] -------------------------
+
+cannot pull image from registry `docker-hub`
+
+  4 | Image('fsattila/python_app:latest')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot find this image
+
+TIP: there is an image with a similar name: `python-app:latest`
+
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<div class="row" style="justify-content: space-between; width: 50%; margin-inline: auto;">
+					<span>✅</span>
+					<span>✅</span>
+					<span>🐛</span>
+				</div>
+				<pre data-id="dock"><code data-trim data-line-numbers class="language-tidy">
+					webnet :: Network()
+
+					web :: Service[
+						Image('fsattila/python-app:latest')
+						Port(8080, 80)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="dock"><code data-trim data-line-numbers="5" class="language-tidy">
+					webnet :: Network()
+
+					web :: Service[
+						Image('fsattila/python-app:latest')
+						Port(8080, 80)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="dock"><code data-trim data-line-numbers="5" class="language-tidy">
+					webnet :: Network()
+
+					web :: Service[
+						Image('fsattila/python-app:latest')
+						Port(container: 8080, host: 80)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section>
+				<div class="row" style="justify-content: space-around; align-items: center;">
+					<div class="column fragment" data-fragment-index="1">
+						<div class="platf-resp" style="border: 2px dashed #dfba5a; background: #dfba5a4d;">
+							<h5><code>camera</code></h5>
+							<h5><code>audio</code></h5>
+							<h5><code>p2p</code></h5>
+						</div>
+						<h5>Gamedev</h5>
+					</div>
+					<div class="column fragment" data-fragment-index="3">
+						<div class="platf-resp" style="border: 2px dashed #dfba5a; background: #dfba5a4d;">
+							<h5><code>python</code></h5>
+							<h5><code>redis</code></h5>
+							<h5><code>bitnami/kubectl</code></h5>
+						</div>
+						<h5>Docker Compose</h5>
+					</div>	
+					<div class="column fragment" data-fragment-index="2">
+						<div class="platf-resp" style="border: 2px dashed #dfba5a; background: #dfba5a4d;">
+							<h5><code>buttons</code></h5>
+							<h5><code>cards</code></h5>
+							<h5><code>tailwind</code></h5>
+						</div>
+						<h5>Frontend</h5>
+					</div>	
+				</div>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="image"><code data-trim data-line-numbers class="language-tidy">
+					ubuntu :: import('ubuntu')
+					python :: import('python')
+
+					pythonApp :: Image[
+						From(ubuntu.image)
+						Copy(from: 'webapp.py', into: 'webapp/')
+						ubuntu.AptInstall(python.PackageName())
+						python.Run('webapp.py')
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="image"><code data-trim data-line-numbers="3,6,7" class="language-tidy">
+					ubuntu :: import('ubuntu')
+					python :: import('python')
+					redis :: import ('redis')
+
+					pythonApp :: Image[
+						Expose(port: 80)
+						RequiresService(redis.image)
+
+						From(ubuntu.image)
+						Copy(from: 'webapp.py', into: 'webapp/')
+						ubuntu.AptInstall(python.PackageName())
+						python.Run(webapp.py)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate data-auto-animate-restart>
+				<pre data-id="help"><code data-trim data-line-numbers class="language-tidy">
+					pythonApp :: import('fsattila-python-app')
+
+					webnet :: Network()	
+
+					web :: Service[
+						Image(pythonApp)
+						Port(pythonApp)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="help"><code data-trim data-line-numbers="6" class="language-tidy error-line">
+					pythonApp :: import('fsattila-python-app')
+
+					webnet :: Network()	
+
+					web :: Service[
+						Image(pythonApp)
+						Port(pythonApp)
+						Network(webnet)
+					]
+				</code></pre>
+				<pre class="fragment"><code data-trim class="language-tidy">
+-- compose.ty: [MISSING_SERVICE] ---------------------------------
+
+the image `pythonApp` requires a service with a(n) `redis` image:
+
+  6 | Image(pythonApp)
+            ^^^^^^^^^ required by this Image
+
+please add such a Service, or add it to the `ignoreDeps` param:
+
+  6 | Image(pythonApp, ignoreDeps: ['redis'])
+                       ~~~~~~~~~~~~~~~~~~~~~
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<div class="row fragment" style="justify-content: space-between; width: 50%; margin-inline: auto;">
+					<span>✅</span>
+					<span>✅</span>
+					<span>✅</span>
+				</div>
+				<pre data-id="help"><code data-trim data-line-numbers="5-7" class="language-tidy">
+					pythonApp :: import('fsattila-python-app')
+
+					webnet :: Network()	
+
+					redis :: Service[
+						# stuff
+					]
+
+					web :: Service[
+						Image(pythonApp)
+						Port(pythonApp)
+						Network(webnet)
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate data-auto-animate-restart>
+				<pre data-id="long" style="height: 600px;"><code data-trim data-line-numbers>
+					services:
+					auth:
+						image: node:18
+						working_dir: /app
+						volumes:
+						- ./auth:/app
+						ports:
+						- "3001:3000"
+						- "3002:4000"
+						- "3003:5000"	
+						- "3004:6000"	
+						environment:
+						- NODE_ENV=development
+						- SHARED_SECRET=mysecret
+
+					users:
+						image: node:18
+						working_dir: /app
+						volumes:
+						- ./users:/app
+						ports:
+						- "3005:3000"
+						- "3006:4000"
+						- "3007:5000"	
+						- "3008:6000"	
+						environment:
+						- NODE_ENV=development
+						- SHARED_SECRET=mysecret
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="long" style="height: 600px;"><code data-trim data-line-numbers class="language-tidy">
+					node18 :: import('node18')
+					
+					auth :: Service[
+						Image(node18)
+						WorkingDir('/app')
+						Volume(host: './auth', container: '/app')
+						Port(container: 3001, host: 3000)
+						Port(container: 3002, host: 4000)
+						Port(container: 3003, host: 5000)
+						Port(container: 3004, host: 6000)
+						Environment(set: 'NODE_ENV', to: 'development')
+						Environment(set: 'SHARED_SECRET', to: 'mysecret')
+					]
+
+					users :: Service[
+						Image(node18)
+						WorkingDir('/app')
+						Volume(host: './users', container: '/app')
+						Port(container: 3005, host: 3000)
+						Port(container: 3006, host: 4000)
+						Port(container: 3007, host: 5000)
+						Port(container: 3008, host: 6000)
+						Environment(set: 'NODE_ENV', to: 'development')
+						Environment(set: 'SHARED_SECRET', to: 'mysecret')
+					]
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="long" style="height: 600px;"><code data-trim data-line-numbers class="language-tidy">
+					node18 :: import('node18')
+
+					makeService :: (hostDir: Str, portStart: Nat) {
+						dir :: format('./$hostDir')
+
+						Service[
+							Image(node18)
+							WorkingDir('/app')
+							Volume(dir, container: '/app')
+							Port(portStart, host: 3000)
+							Port(portStart+1, host: 3000)
+							Port(portStart+2, host: 3000)
+							Port(portStart+3, host: 3000)
+							Environment(set: 'NODE_ENV', to: 'development')
+							Environment(set: 'SHARED_SECRET', to: 'mysecret')
+						]
+					}
+					
+					auth :: makeService(hostDir: 'auth', 3001) 
+					users :: makeService(hostDir: 'users', 3005)
+				</code></pre>
+			</section>
+			<section data-auto-animate>
+				<pre data-id="long" style="height: 600px;"><code data-trim data-line-numbers="14-16" class="language-tidy">
+					node18 :: import('node18')
+
+					makeService :: (hostDir: Str, portStart: Nat) {
+						dir :: format('./$hostDir')
+					
+						service :: Service[
+							Image(node18)
+							WorkingDir('/app')
+							Volume(dir, container: '/app')
+							Environment(set: 'NODE_ENV', to: 'development')
+							Environment(set: 'SHARED_SECRET', to: 'mysecret')
+						]
+					
+						range(from: portStart, to: portStart + 4, do: (n) {
+							service.push(Port(n, host: 3000))
+						})
+
+						service
+					}
+					
+					auth :: makeService(hostDir: 'auth', 3001) 
+					users :: makeService(hostDir: 'users', 3005)
+				</code></pre>
+			</section>
+			<section>
+				<h2>Summary</h2>
+			</section>
+			<section>
+				<h2>Why <i>tidy</i>?</h2>
+
+				<ul>
+					<li class="fragment">Friendly</li>
+					<li class="fragment">Consistent</li>
+					<li class="fragment">Flexible</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Why platforms?</h2>
+				<ul>
+					<li class="fragment">Better UX</li>
+					<li class="fragment">Outstanding type safety</li>
+					<li class="fragment">True SoC</li>
+					<li class="fragment">Tighter security</li>
+					<li class="fragment">Greater opt. potential</li>
+				</ul>
+			</section>
+			<section>
+				<img src="tepi.png" class="r-stretch" />
+				<h2>Thank You for your attention!</h2>
+			</section>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: false,
+			controls: false,
+			progress: false,	
+			overview: true,
+			autoAnimateDuration: 0.75,
+			slideNumber: false,
+			showSlideNumber: 'all',
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealHighlight, RevealNotes],
+
+			highlight: {
+				beforeHighlight: (hljs) => {
+					hljs.registerLanguage('tidy', function (hljs) {
+						const ml = hljs.getLanguage('ocaml');
+						
+						ml.contains.splice(2, 1)
+						ml.contains.splice(0, 1)
+
+						console.log(ml)
+
+						return {
+							...ml,
+							name: 'tidy',
+							keywords: ['rec', 'mutrec', 'if', 'else', 'pub'],
+							contains: [
+								...ml.contains,
+								hljs.COMMENT('#', '$'),
+								{
+									scope: "string",
+									begin: "'",
+									end: "'",
+									relevance: 1
+								}
+							]
+						}
+					});
+				}
+			}
+		}).then(() => {
+			//Reveal.slide(55, 0)	
+		})
+		
+		//Reveal.togglePause();
+
+		Reveal.on('slidechanged', event => {
+			const slide = event.indexh;
+
+			if (slide > 5) {
+				document.querySelector('.reveal').classList.toggle('blur-background2', true);
+			} else if (slide > 0) {
+				document.querySelector('.reveal').classList.toggle('blur-background2', false);
+				document.querySelector('.reveal').classList.toggle('blur-background1', true);
+			}
+		})
+	</script>
+</body>
+
+</html>
