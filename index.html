@@ -972,9 +972,9 @@ please add such a Service, or add it to the `ignoreDeps` param:
 							WorkingDir('/app')
 							Volume(dir, container: '/app')
 							Port(portStart, host: 3000)
-							Port(portStart+1, host: 3000)
-							Port(portStart+2, host: 3000)
-							Port(portStart+3, host: 3000)
+							Port(portStart+1, host: 4000)
+							Port(portStart+2, host: 5000)
+							Port(portStart+3, host: 6000)
 							Environment(set: 'NODE_ENV', to: 'development')
 							Environment(set: 'SHARED_SECRET', to: 'mysecret')
 						]
@@ -999,8 +999,8 @@ please add such a Service, or add it to the `ignoreDeps` param:
 							Environment(set: 'SHARED_SECRET', to: 'mysecret')
 						]
 					
-						range(from: portStart, to: portStart + 4, do: (n) {
-							service.push(Port(n, host: 3000))
+						range(from: 0, to: 3, do: (n) {
+							service.push(Port(portStart + n, host: 3000 + n * 1000))
 						})
 
 						service
