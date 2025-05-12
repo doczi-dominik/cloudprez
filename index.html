@@ -392,21 +392,31 @@ TIP: you can change it to `:=` to allow mutation:
 				</code></pre>
 			</section>
 			<section data-auto-animate>
-				<pre data-id="comp-ex"><code data-trim data-line-numbers="4-5" class="language-tidy">
+				<pre data-id="comp-ex"><code data-trim data-line-numbers="4-10" class="language-tidy">
 					Circle :: [radius :: 0.0]
 					Rectangle :: [width :: 0, height :: 0]
 
-					circleArea :: (c: Circle) { 2 * Pi * c.radius * c.radius }
-					circleRectangle :: (r: Rectangle) { 2 * (r.width + r.height) }
+					circleArea :: (c: Circle) {
+						2 * Pi * c.radius * c.radius
+					}
+
+					circleRectangle :: (r: Rectangle) {
+						2 * (r.width + r.height)
+					}
 				</code></pre>	
 			</section>
 			<section data-auto-animate>
-				<pre data-id="comp-ex"><code data-trim data-line-numbers="7-9" class="language-tidy">
+				<pre data-id="comp-ex"><code data-trim data-line-numbers="12-14" class="language-tidy">
 					Circle :: [radius :: 0.0]
 					Rectangle :: [width :: 0, height :: 0]
 
-					circleArea :: (c: Circle) { 2 * Pi * c.radius * c.radius }
-					circleRectangle :: (r: Rectangle) { 2 * (r.width + r.height) }
+					circleArea :: (c: Circle) {
+						2 * Pi * c.radius * c.radius
+					}
+
+					circleRectangle :: (r: Rectangle) {
+						2 * (r.width + r.height)
+					}
 
 					circ := Circle()	
 
@@ -414,12 +424,17 @@ TIP: you can change it to `:=` to allow mutation:
 				</code></pre>	
 			</section>
 			<section data-auto-animate>
-				<pre data-id="comp-ex"><code data-trim data-line-numbers="9-10" class="language-tidy">
+				<pre data-id="comp-ex"><code data-trim data-line-numbers="14-15" class="language-tidy">
 					Circle :: [radius :: 0.0]
 					Rectangle :: [width :: 0, height :: 0]
 
-					circleArea :: (c: Circle) { 2 * Pi * c.radius * c.radius }
-					circleRectangle :: (r: Rectangle) { 2 * (r.width + r.height) }
+					circleArea :: (c: Circle) {
+						2 * Pi * c.radius * c.radius
+					}
+
+					circleRectangle :: (r: Rectangle) {
+						2 * (r.width + r.height)
+					}
 
 					circ := Circle()	
 
@@ -1000,7 +1015,7 @@ please add such a Service, or add it to the `ignoreDeps` param:
 						]
 					
 						range(0, to: 3, do: (n) {
-							service.push(Port(portStart + n, 3000 + n * 1000))
+							service.push(item: Port(portStart + n, 3000 + n * 1000))
 						})
 
 						service
