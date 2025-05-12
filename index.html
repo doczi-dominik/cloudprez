@@ -14,9 +14,6 @@
 	<!-- Theme used for syntax highlighted code -->
 	<link rel="stylesheet" href="plugin/highlight/monokai.css">
 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/crpietschmann/hljslanguagedisplayplugin@v1.0/dist/css/hljslanguagedisplayplugin.css">
-	<script src="https://cdn.jsdelivr.net/gh/crpietschmann/hljslanguagedisplayplugin@v1.0/dist/js/hljslanguagedisplayplugin.js"></script>	
-
 
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');	
@@ -322,87 +319,6 @@ TIP: you can change it to `:=` to allow mutation:
 				</code></pre>
 			</section>
 			<section data-auto-animate data-auto-animate-restart>
-				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="1,6">
-				swap :: (first, second) {
-					temp :: Take(first)
-
-					first = second
-					second = temp
-				}
-				</code></pre>
-			</section>
-			<section data-auto-animate>
-				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="4-5">
-				swap :: (first, second) {
-					temp :: Take(first)
-
-					first = second
-					second = temp
-				}
-				</code></pre>
-			</section>
-			<section data-auto-animate>
-				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="8-11">
-				swap :: (first, second) {
-					temp :: Take(first)
-
-					first = second
-					second = temp
-				}
-
-				a := 5
-				b := 9
-
-				swap(a, b)
-				</code></pre>
-			</section>
-			<section data-auto-animate>
-				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="3-6">
-				swap :: (first, second) { }
-
-				a := 5
-				b := 9
-
-				swap(a, b)
-				</code></pre>
-			</section>
-			<section data-auto-animate>
-				<pre data-id="ex3"><code data-trim class="language-tidy warn-line" data-line-numbers="6">
-				swap :: (first, second) { }
-
-				a := 5
-				b := 9
-
-				swap(a, b)
-				</code></pre>
-				<pre><code class="fragment fade-bottom language-tidy">
--- swap.ty: [MUT_MARKER_RECOMM] ---------------------------------	
-
-the `swap` function mutates some of its parameters:
-
-  6 | swap(a, b)
-           ^--^ these 2 arguments are mutated by `swap`
-
-i suggest you add ! after these args to make mutation obvious:
-
-  6 | swap(a!, b!)
-
-this way anyone can tell without looking at `swap` directly!
-				</code></pre>
-			</section>
-			<section data-auto-animate>
-				<pre data-id="ex3"><code data-trim class="language-tidy" data-line-numbers="6-8">
-				swap :: (first, second) { }
-
-				a := 5
-				b := 9
-
-				swap(a!, b!)
-
-				info(a == 9, b == 5)  # True, True
-				</code></pre>
-			</section>
-			<section data-auto-animate data-auto-animate-restart>
 				<pre data-id="den-ex"><code data-trim data-line-numbers class="language-tidy">
 					empty :: []
 				</code></pre>
@@ -614,20 +530,7 @@ this way anyone can tell without looking at `swap` directly!
 					b :: Point[x: 90, y: 75]
 
 					c :: a + b
-				</code></pre>	
-			</section>
-			<section data-auto-animate>
-				<pre data-id="overload" class="language-tidy"><code data-trim data-line-numbers="3-5">
-					Point :: [x := 0, y := 0]
-					
-					add.overload((l: Point, r: Point) {
-						Point[x: l.x + r.x, y: l.y + r.y]
-					})
-
-					a :: Point[x: 10, y: 20]
-					b :: Point[x: 90, y: 75]
-
-					c :: a + b
+					info(c)  # [x: 100, y: 95]
 				</code></pre>	
 			</section>
 			<section data-auto-animate data-auto-animate-restart>
@@ -734,18 +637,18 @@ this way anyone can tell without looking at `swap` directly!
 				<div data-id="platf3" class="column" style="border: 2px dashed #dfba5a; background: #dfba5a4d; margin-block: 10px; height: 600px;">
 
 					<div class="column platf-resp" style="height: 125px; width: 100%;">
-						<h5 data-fragment-index="1" class="fragment">Raw hardware / OS access</h5>
-						<h5 data-fragment-index="2" class="fragment">Output machine code</h5>
-						<h5 data-fragment-index="3" class="fragment">Only accepts concrete types</h5>
+						<h5 data-fragment-index="1" >Raw hardware / OS access</h5>
+						<h5 data-fragment-index="2" >Output machine code</h5>
+						<h5 data-fragment-index="3" >Only accepts concrete types</h5>
 					</div>
 
 					<div class="tidy-resp" data-id="platf1" style="border: 2px dashed #4af282; background: #4af2824d; margin: auto 10px 10px 10px; height: 375px;">
 						<img data-id="platf1img" src="tepi.png" style="height: 2rem; filter: drop-shadow(0px 0px 10px black);" />
-						<h5 data-fragment-index="4" class="fragment">Unchecked Memory Management</h5>
-						<h5 data-fragment-index="5" class="fragment">Work with "raw" data types</h5>
-						<h5 data-fragment-index="6" class="fragment">Data Structure implementation</h5>
-						<h5 data-fragment-index="7" class="fragment">Ensure safety</h5>
-						<h5 data-fragment-index="8" class="fragment">Portability, Threading, etc.</h5>
+						<h5 data-fragment-index="4">Unchecked Memory Management</h5>
+						<h5 data-fragment-index="5">Work with "raw" data types</h5>
+						<h5 data-fragment-index="6">Data Structure implementation</h5>
+						<h5 data-fragment-index="7">Ensure safety</h5>
+						<h5 data-fragment-index="8">Portability, Threading, etc.</h5>
 					</div>					
 				</div>
 			</section>
@@ -754,17 +657,17 @@ this way anyone can tell without looking at `swap` directly!
 
 				<div data-id="platf3" class="column" style="border: 2px dashed #dfba5a; background: #dfba5a4d; margin-block: 10px; height: 600px;">
 					<div class="column platf-resp" style="height: 125px; width: 100%;">
-						<h5 data-fragment-index="1" class="fragment">Runs an HTTP server</h5>
-						<h5 data-fragment-index="2" class="fragment">Exposes a <code style="color: #ffae51; font-weight: bold;">Req</code> / <code style="color: #ffae51; font-weight: bold;">Resp</code> API</h5>
-						<h5 data-fragment-index="3" class="fragment">Handles async I/O and scheduling</h5>
-						<h5 data-fragment-index="4" class="fragment">Auto. per-request memory management</h5>
-						<h5 data-fragment-index="5" class="fragment">Automatic data struct. selection</h5>
-						<h5 data-fragment-index="6" class="fragment">Compile-time check for protocol violations!</h5>
+						<h5 data-fragment-index="1">Runs an HTTP server</h5>
+						<h5 data-fragment-index="2">Exposes a <code style="color: #ffae51; font-weight: bold;">Req</code> / <code style="color: #ffae51; font-weight: bold;">Resp</code> API</h5>
+						<h5 data-fragment-index="3">Handles async I/O and scheduling</h5>
+						<h5 data-fragment-index="4">Auto. per-request memory management</h5>
+						<h5 data-fragment-index="5">Automatic data struct. selection</h5>
+						<h5 data-fragment-index="6">Compile-time check for protocol violations!</h5>
 					</div>
 
 					<div class="tidy-resp" data-id="platf1" style="border: 2px dashed #4af282; background: #4af2824d; margin: auto 10px 10px 10px; height: 150px;">
 						<img src="tepi.png" style="height: 2rem; filter: drop-shadow(0px 0px 10px black);" />
-						<h5 data-fragment-index="7" class="fragment">Describe API, write handler functions</h5>
+						<h5 data-fragment-index="7" >Describe API, write handler functions</h5>
 					</div>					
 				</div>
 			</section>
